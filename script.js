@@ -19,7 +19,7 @@ var citySaved = [];
         
     }
     console.log(searchCity);
-    var currqueryURL ="http://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&units=metric&appid="+apiKey;
+    var currqueryURL ="https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&units=metric&appid="+apiKey;
     await fetch(currqueryURL)
     .then(response1 => response1.text())
     .then(str => resp1=(JSON.parse(str)))
@@ -76,12 +76,13 @@ function showSearch(event)
     // console.log(document.querySelector("#serachText").value);
     searchCity= document.querySelector("#serachText").value;
     showResult(searchCity);
+    var id = "_"+Date.now;
     // var listDiv = document.createElement("div")
     var button =document.createElement("button");
-    button.textContent = searchCity;
-    // button.addEventListener("onclick");
-    // button.onclick(showResult(button.textContent));
-    document.querySelector("#cityList").prepend(button);
+
+    const buttonHTML = `<button onClick="showResult('${searchCity}')">${searchCity}</button>`
+
+    document.querySelector("#cityList").innerHTML+= buttonHTML;
     citySaved.push(searchCity);
     localStorage.setItem("cityList",citySaved );
 
